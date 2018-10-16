@@ -1,0 +1,45 @@
+
+ [
+   {
+     "question": "1. Orcas (Killer Whales) are part of the dolphin family",
+     "answer": true
+   },
+   {
+     "question": "2. Blue Whales are the largest known mammal to ever live",
+     "answer": true
+   },
+   {
+     "question": "3. Dolphins are not intelligent animals",
+     "answer": false
+   },
+   {
+     "question": "4. Marine mammals can breath underwater",
+     "answer": false
+   },
+   {
+     "question": "5. Beluga whales are nicknamed the canaries of the sea",
+     "answer": true
+   },
+   {
+     "question": "6. The closest living relative to whales and dolphins are fish",
+     "answer": false
+   },
+   {
+     "question": "7. Polar Bears are marine mammals",
+     "answer": true
+   },
+   {
+     "question": "8. Seals and Sea lions are the same animals",
+     "answer": false
+   },
+   {
+     "questions": "9. A monkey's brain is bigger than a dolphin's",
+     "answer": false
+   },
+   {
+     "questions": "10. All marine mammals have fat to keep them warm in the water",
+     "answer": false
+   }
+ ]
+
+
