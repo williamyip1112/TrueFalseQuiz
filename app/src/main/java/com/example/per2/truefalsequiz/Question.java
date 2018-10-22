@@ -2,15 +2,17 @@ package com.example.per2.truefalsequiz;
 
 class Question
 {
-    private String question;
+    private Question question;
     private boolean answer;
+
+
 
     public Question(String question, boolean answer)
     {
         String q = question;
         boolean a = answer;
     }
-    public String getQuestion()
+    public Question getQuestion()
     {
         return this.question;
     }
@@ -18,7 +20,7 @@ class Question
     {
         return this.answer;
     }
-    public void setQuestion(String q)
+    public void setQuestion(Question q)
     {
         this.question = q;
     }
@@ -38,6 +40,7 @@ class Question
         }
 
     }
+
 
 }
 

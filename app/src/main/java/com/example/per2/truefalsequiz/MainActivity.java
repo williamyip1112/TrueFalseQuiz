@@ -3,6 +3,7 @@ package com.example.per2.truefalsequiz;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonfalse;
     private Button buttontrue;
     private TextView question;
+    private Quiz theQuiz;
 
 
 
@@ -28,9 +30,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeQuiz();
-        Log.d("Whale", "onCreate: " + "Whale");
         wireWidgets();
+        setListeners();
+        Log.d("Whale", "onCreate: " + "Whale");
+        displayNextQuestion();
 
+    }
+
+    private void displayNextQuestion(Quiz truefalsequiz)
+    {
+        if(truefalsequiz.isThereAnotherQ)
+            int i = truefalsequiz.getQuestion();
+
+
+
+    }
+
+    private void setListeners()
+    {
+        TrueFalseQuiz quizListener = new TrueFalseQuiz();
+        buttontrue.setOnClickListener(quizListener);
+        buttonfalse.setOnClickListener(quizListener);
     }
 
     private void wireWidgets()
@@ -40,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         TextView question = findViewById(R.id.textView_main_question);
     }
 
-    private void initializeQuiz()
+    public void initializeQuiz()
     {
         InputStream trueFalse = getResources().openRawResource(R.raw.questions);
         String sxml = readTextFile(trueFalse);
@@ -52,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         List<Question> questionList = Arrays.asList(questions);
 // verify that it read everything properly
         Log.d("Quiz", "onCreate: " + questionList.toString());
+        theQuiz = new Quiz(questionList);
     }
 
 
@@ -72,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return outputStream.toString();
     }
+    private class TrueFalseQuiz implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            //get the id of the button that was clicked
+            int id = v.getId();
+
+        }
+    }
+
 
 }
 
