@@ -1,5 +1,6 @@
 package com.example.per2.truefalsequiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,40 +18,49 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String EXTRA_SENT_SCORE = "Your score is ";
     private Button buttonfalse;
     private Button buttontrue;
     private TextView question;
     private Quiz theQuiz;
+    private int score;
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeQuiz();
         wireWidgets();
         setListeners();
         Log.d("Whale", "onCreate: " + "Whale");
-        displayNextQuestion();
+        displayNextQuestion(theQuiz);
 
     }
 
     private void displayNextQuestion(Quiz truefalsequiz)
     {
         if(truefalsequiz.isThereAnotherQ)
-            int i = truefalsequiz.getQuestion();
+        {
+            Question i = truefalsequiz.getCurrent();
 
-
+        }
+        else
+        {
+            Intent intentFinishGame = new Intent(MainActivity.this, EndGameActivity.class);
+            intentFinishGame.putExtra(EXTRA_SENT_SCORE, theQuiz.getScore());
+            startActivity(intentFinishGame);
+        }
 
     }
 
     private void setListeners()
     {
-        TrueFalseQuiz quizListener = new TrueFalseQuiz();
-        buttontrue.setOnClickListener(quizListener);
-        buttonfalse.setOnClickListener(quizListener);
+        buttontrue.setOnClickListener(this);
+        buttonfalse.setOnClickListener(this);
     }
 
     private void wireWidgets()
@@ -93,14 +103,37 @@ public class MainActivity extends AppCompatActivity {
         }
         return outputStream.toString();
     }
-    private class TrueFalseQuiz implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            //get the id of the button that was clicked
-            int id = v.getId();
 
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.button_main_true:
+                answerQuestion(true);
+                break;
+            case R.id.button_main_false:
+                answerQuestion(false);
+                break;
         }
     }
+
+    private void answerQuestion(boolean b)
+    {
+        if(theQuiz.getCurrent().getAnswer())
+        {
+            score += 1;
+            displayNextQuestion(theQuiz);
+        }
+        else
+        {
+            displayNextQuestion(theQuiz);
+        }
+    }
+
+
+
+
 
 
 }
