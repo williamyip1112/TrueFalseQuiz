@@ -27,10 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int score;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeQuiz();
@@ -41,15 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void displayNextQuestion(Quiz truefalsequiz)
-    {
-        if(truefalsequiz.isThereAnotherQ)
-        {
+    private void displayNextQuestion(Quiz truefalsequiz) {
+        if (truefalsequiz.isThereAnotherQ) {
             Question i = truefalsequiz.getCurrent();
 
-        }
-        else
-        {
+        } else {
             Intent intentFinishGame = new Intent(MainActivity.this, EndGameActivity.class);
             intentFinishGame.putExtra(EXTRA_SENT_SCORE, theQuiz.getScore());
             startActivity(intentFinishGame);
@@ -57,27 +51,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setListeners()
-    {
+    private void setListeners() {
         buttontrue.setOnClickListener(this);
         buttonfalse.setOnClickListener(this);
     }
 
-    private void wireWidgets()
-    {
-        Button buttonfalse = findViewById(R.id.button_main_false);
-        Button buttontrue = findViewById(R.id.button_main_true);
-        TextView question = findViewById(R.id.textView_main_question);
+    private void wireWidgets() {
+        buttonfalse = findViewById(R.id.button_main_false);
+        buttontrue = findViewById(R.id.button_main_true);
+        question = findViewById(R.id.textView_main_question);
     }
 
-    public void initializeQuiz()
-    {
+    public void initializeQuiz() {
         InputStream trueFalse = getResources().openRawResource(R.raw.questions);
         String sxml = readTextFile(trueFalse);
         // create a gson object
         Gson gson = new Gson();
 // read your json file into an array of questions
-        Question[] questions =  gson.fromJson(sxml, Question[].class);
+        Question[] questions = gson.fromJson(sxml, Question[].class);
 // convert your array to a list using the Arrays utility class
         List<Question> questionList = Arrays.asList(questions);
 // verify that it read everything properly
@@ -105,10 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.button_main_true:
                 answerQuestion(true);
                 break;
@@ -118,24 +107,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void answerQuestion(boolean b)
-    {
-        if(theQuiz.getCurrent().getAnswer())
+    private void answerQuestion(boolean b) {
+        for (int i = 0; i <= 10; i++)
         {
-            score += 1;
-            displayNextQuestion(theQuiz);
-        }
-        else
-        {
-            displayNextQuestion(theQuiz);
+            if (theQuiz.getCurrent().getAnswer())
+            {
+                score += 1;
+                displayNextQuestion(theQuiz);
+            }
+            else
+                {
+                displayNextQuestion(theQuiz);
+            }
         }
     }
-
-
-
-
-
-
 }
 
 
