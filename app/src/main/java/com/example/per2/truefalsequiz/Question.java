@@ -12,7 +12,7 @@ class Question
         String q = question;
         boolean a = answer;
     }
-    public String getQuestion()
+    public String getQuestionString()
     {
         return this.question;
     }

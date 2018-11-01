@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,12 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void displayNextQuestion(Quiz truefalsequiz) {
-        if (truefalsequiz.isThereAnotherQ) {
-            Question i = truefalsequiz.getCurrent();
+        if (truefalsequiz.isThereAnotherQ()) {
+
+            truefalsequiz.nextQuestion();
+            question.setText(truefalsequiz.getQuestion().getQuestionString());
 
         } else {
             Intent intentFinishGame = new Intent(MainActivity.this, EndGameActivity.class);
-            intentFinishGame.putExtra(EXTRA_SENT_SCORE, theQuiz.getScore());
+            intentFinishGame.putExtra(EXTRA_SENT_SCORE, score);
             startActivity(intentFinishGame);
         }
 
@@ -107,18 +108,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void answerQuestion(boolean b) {
-        for (int i = 0; i <= 10; i++)
+    private void answerQuestion(boolean selectedAnswer) {
+        if (theQuiz.getCurrent().getAnswer() == selectedAnswer)
         {
-            if (theQuiz.getCurrent().getAnswer())
-            {
-                score += 1;
-                displayNextQuestion(theQuiz);
-            }
-            else
-                {
-                displayNextQuestion(theQuiz);
-            }
+            score += 1;
+            displayNextQuestion(theQuiz);
+        } else {
+            displayNextQuestion(theQuiz);
         }
     }
 }

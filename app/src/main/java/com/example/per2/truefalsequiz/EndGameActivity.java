@@ -12,8 +12,8 @@ public class EndGameActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
-        textViewScore = findViewById(R.id.textView_main_question);
-        textViewScore.setText("Your score is " + getIntent().getStringExtra(MainActivity.EXTRA_SENT_SCORE + "/10"));
+        textViewScore = findViewById(R.id.textView_main_score);
+        textViewScore.setText("Your score is " + getIntent().getIntExtra(MainActivity.EXTRA_SENT_SCORE, -1) + "/10");
     }
 
 }
